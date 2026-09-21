@@ -1,13 +1,20 @@
+// System
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+
+// Unity
 using Unity.Mathematics;
 using Unity.VisualScripting;
+
+// Unity Editor
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
+// Assets.Scripts
 using Assets.Scripts;
 using Assets.Scripts.Suspension;
 using static Assets.Scripts.CustomValues;

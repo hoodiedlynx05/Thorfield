@@ -1,8 +1,13 @@
+// System
 using System;
 using System.Collections;
 using System.Collections.Generic;
+
+// Unity
 using Unity.Mathematics;
 using Unity.VisualScripting;
+
+// Unity Engine
 using UnityEngine;
 using UnityEngine.InputSystem;
 

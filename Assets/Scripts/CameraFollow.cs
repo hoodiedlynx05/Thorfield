@@ -135,4 +135,4 @@ public class CameraFollow: MonoBehaviour
 
         target.angularVelocity = Vector3.zero; // prevent physics from interfering with manual control
     }
-}   
+}

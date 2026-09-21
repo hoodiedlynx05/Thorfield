@@ -311,8 +311,7 @@ public class UniversalSuspension : MonoBehaviour
 
     private void Initialize()
     {
-        if (initialized &&
-            activeSuspensionType ==  suspensionType)
+        if (initialized && activeSuspensionType ==  suspensionType)
         {
             return;
         }
@@ -324,9 +323,11 @@ public class UniversalSuspension : MonoBehaviour
         CurrentLength = restLength;
 
         foreach(Transform transform in suspensionArmTransformGroup)
-        if (transform !=  null)
         {
-            armRestRotation = transform.localRotation;
+            if (transform != null)
+            {
+                armRestRotation = transform.localRotation;
+            }
         }
 
         activeSuspensionType = suspensionType;
@@ -343,8 +344,7 @@ public class UniversalSuspension : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!initialized ||
-            activeSuspensionType !=  suspensionType)
+        if (!initialized || activeSuspensionType !=  suspensionType)
         {
             Initialize();
         }
@@ -361,7 +361,9 @@ public class UniversalSuspension : MonoBehaviour
     private void UpdateSuspension(float deltaTime)
     {
         if (deltaTime <=  0f)
+        {
             return;
+        }
 
 
         // ----------------------------------------------------
@@ -381,8 +383,7 @@ public class UniversalSuspension : MonoBehaviour
 
         if (contact.grounded)
         {
-            currentLength = Mathf.Clamp(        
-                    contact.distance,MinimumLength,MaximumLength);
+            currentLength = Mathf.Clamp(contact.distance,MinimumLength,MaximumLength);
         }
         else
         {
@@ -410,8 +411,7 @@ public class UniversalSuspension : MonoBehaviour
         //
         // ----------------------------------------------------
 
-        SuspensionVelocity = (previousLength - currentLength)
-            / deltaTime;
+        SuspensionVelocity = (previousLength - currentLength) / deltaTime;
 
 
         // ----------------------------------------------------
@@ -509,12 +509,10 @@ public class UniversalSuspension : MonoBehaviour
         {
             foreach (Transform roadwheel in roadwheelTransformGroup)
             {
-                if (roadwheel !=  null)
+                if (roadwheel != null)
                 {
                     roadwheel.position = transform.position + axis * currentLength;
                 }
-
-                return;
             }
         }
 
@@ -523,13 +521,6 @@ public class UniversalSuspension : MonoBehaviour
         // SUSPENSION ARM MOVEMENT
         // ----------------------------------------------------
 
-        foreach (Transform transform in suspensionArmTransformGroup)
-        {
-            if (transform ==  null)
-            {
-                return;
-            }
-        }
 
         float compression = restLength - currentLength;
 
@@ -560,12 +551,12 @@ public class UniversalSuspension : MonoBehaviour
 
     private float CalculateAngularVelocity(float linearVelocity)
     {
-        if (leverArm <=  0.0001f)
+        if (leverArm <=  0.0001f){
             return 0f;
+        }
 
 
-        return
-            (linearVelocity * springMotionRatio) / leverArm;
+        return (linearVelocity * springMotionRatio) / leverArm;
     }
 
 
@@ -588,8 +579,7 @@ public class UniversalSuspension : MonoBehaviour
     {
         get
         {
-            return
-                restLength + maximumExtension;
+            return restLength + maximumExtension;
         }
     }
 
@@ -824,17 +814,16 @@ public static class SuspensionMath
 
     public static float GetNormalizedCompression(float compression,float travel)
     {
-        if (travel <=  0f)
+        if (travel <=  0f){
             return 0f;
-
+        }
         return Mathf.Clamp01(compression / travel);
     }
 
 
     public static float GetMotionRatio(SuspensionInput input)
     {
-        if (Mathf.Abs(input.springMotionRatio)
-            < 0.0001f)
+        if (Mathf.Abs(input.springMotionRatio) < 0.0001f)
         {
             return 1f;
         }
@@ -846,7 +835,9 @@ public static class SuspensionMath
     public static float GetLeverArm(SuspensionInput input,float fallback)
     {
         if (input.leverArm > 0.0001f)
+        {
             return input.leverArm;
+        }
 
         return fallback;
     }
@@ -897,7 +888,9 @@ public class VVSSuspension : ISuspensionModel
         state.grounded = input.grounded;
 
         if (!input.grounded)
+        {
             return state;
+        }
 
 
         float wheelCompression = SuspensionMath.GetCompression(input);
@@ -968,7 +961,9 @@ public class HVSSuspension : ISuspensionModel
         state.grounded = input.grounded;
 
         if (!input.grounded)
+        {
             return state;
+        }
 
 
         float wheelCompression = SuspensionMath.GetCompression(input);
@@ -1046,8 +1041,9 @@ public class TorsionBarSuspension : ISuspensionModel
         state.grounded = input.grounded;
 
         if (!input.grounded)
+        {
             return state;
-
+        }
 
         // ----------------------------------------------------
         // Compression
@@ -1186,8 +1182,9 @@ public class HydraulicSuspension : ISuspensionModel
         state.grounded = input.grounded;
 
         if (!input.grounded)
+        {
             return state;
-
+        }
 
         float compression = SuspensionMath.GetCompression(input);
 
@@ -1277,8 +1274,9 @@ public class HydroPneumaticSuspension : ISuspensionModel
         state.grounded = input.grounded;
 
         if (!input.grounded)
+        {
             return state;
-
+        }
 
         float compression = SuspensionMath.GetCompression(input);
 
