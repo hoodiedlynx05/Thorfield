@@ -1,6 +1,6 @@
 using UnityEngine;
 using Assets.Scripts;
-using static Assets.Scripts.CustomValues;
+using static Assets.Scripts.CustomValues;   
 
 namespace Assets.Scripts.Suspension
 {
